@@ -61,14 +61,15 @@ const Inventory = () => {
 
     return (
         <div className="inventory-container">
-            <button
-                className="back-button"
-                onClick={() => navigate("/homepage")}
-            >
-                Back to Homepage
-            </button>
-
-            <h2>Your Closet</h2>
+            <div className="header-nav">
+                <h2>Your Closet</h2>
+                <button
+                    className="back-button"
+                    onClick={() => window.history.back()}
+                >
+                    Back
+                </button>
+            </div>
 
             <select value={filter} onChange={(e) => setFilter(e.target.value)}>
                 <option value="All">All</option>
