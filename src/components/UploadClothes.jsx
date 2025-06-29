@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../supabase";
-import "./UploadClothes.css"; // ✅ Import the CSS file
+import "./UploadClothes.css";
 
 const UploadClothes = () => {
     const [file, setFile] = useState(null);
@@ -9,6 +9,7 @@ const UploadClothes = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleUpload = async () => {
+        if (isLoading) return; // prevent double uploads
         setIsLoading(true);
 
         const {
@@ -17,20 +18,20 @@ const UploadClothes = () => {
 
         if (!user) {
             alert("User not logged in");
+            setIsLoading(false);
             return;
         }
 
         if (!file) {
             alert("No file selected");
+            setIsLoading(false);
             return;
         }
 
-        const filename = `${user.id}/${Date.now()}_${file.name}`;
-        console.log("Uploading file as:", filename);
-
+        const filePath = `${user.id}/${Date.now()}_${file.name}`;
         const { error: uploadError } = await supabase.storage
             .from("clothes")
-            .upload(filename, file, {
+            .upload(filePath, file, {
                 cacheControl: "3600",
                 upsert: false,
             });
@@ -38,12 +39,13 @@ const UploadClothes = () => {
         if (uploadError) {
             console.error("Upload error:", uploadError);
             alert("Error uploading file");
+            setIsLoading(false);
             return;
         }
 
         const { data: urlData } = supabase.storage
             .from("clothes")
-            .getPublicUrl(filename);
+            .getPublicUrl(filePath);
 
         const imageUrl = urlData?.publicUrl;
 
@@ -51,6 +53,7 @@ const UploadClothes = () => {
             {
                 user_id: user.id,
                 img_url: imageUrl,
+                storage_path: filePath, // ✅ Save exact storage path
                 category: category,
                 created_at: new Date().toISOString(),
             },
@@ -58,12 +61,14 @@ const UploadClothes = () => {
 
         if (insertError) {
             console.error("Insert error:", insertError);
-            alert("Error saving image data. Check RLS policies.");
+            alert("Error saving image metadata");
+            setIsLoading(false);
             return;
         }
-        setIsLoading(false);
 
+        // Reset states
         setFile(null);
+        setIsLoading(false);
         setShowModal(true);
     };
 
@@ -79,10 +84,16 @@ const UploadClothes = () => {
                 </button>
             </div>
 
-            <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+            <input
+                type="file"
+                onChange={(e) => setFile(e.target.files[0])}
+                disabled={isLoading}
+            />
+
             <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
+                disabled={isLoading}
             >
                 <option value="Hat">Hat</option>
                 <option value="Accessories">Accessories</option>
@@ -90,11 +101,21 @@ const UploadClothes = () => {
                 <option value="Bottom">Bottom</option>
                 <option value="Shoes">Shoes</option>
             </select>
-            <button className="upload-btn" onClick={handleUpload}>
-                Upload
+
+            <button
+                className="upload-btn"
+                onClick={handleUpload}
+                disabled={isLoading}
+            >
+                {isLoading ? "Uploading..." : "Upload"}
             </button>
 
-            {/* ✅ Modal */}
+            {isLoading && (
+                <div className="loading-spinner">
+                    <div className="spinner" />
+                </div>
+            )}
+
             {showModal && (
                 <div
                     className="modal-backdrop"

@@ -80,6 +80,35 @@ const OutfitMaker = () => {
         setShoes(getRandom("Shoes"));
     };
 
+    const handleSaveOutfit = async () => {
+        const {
+            data: { user },
+        } = await supabase.auth.getUser();
+
+        if (!user) {
+            alert("Not logged in");
+            return;
+        }
+
+        const { error } = await supabase.from("outfits").insert([
+            {
+                user_id: user.id,
+                hat,
+                accessories,
+                top,
+                bottom,
+                shoes,
+            },
+        ]);
+
+        if (error) {
+            console.error("Error saving outfit:", error);
+            alert("Failed to save outfit.");
+        } else {
+            alert("Outfit saved successfully!");
+        }
+    };
+
     return (
         <div className="container">
             <div className="header-nav">
@@ -108,6 +137,10 @@ const OutfitMaker = () => {
                 <button className="randomize-button" onClick={handleRandomize}>
                     Randomize Outfit
                 </button>
+                <button className="save-button" onClick={handleSaveOutfit}>
+                    Save Outfit
+                </button>
+
                 <div className="preview-column">
                     {hat && (
                         <div
