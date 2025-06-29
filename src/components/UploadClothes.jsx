@@ -85,6 +85,7 @@ const UploadClothes = () => {
                 onChange={(e) => setCategory(e.target.value)}
             >
                 <option value="Hat">Hat</option>
+                <option value="Accessories">Accessories</option>
                 <option value="Top">Top</option>
                 <option value="Bottom">Bottom</option>
                 <option value="Shoes">Shoes</option>

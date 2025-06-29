@@ -11,7 +11,7 @@ const Homepage = () => {
             <button onClick={() => navigate("/upload")}>Upload Clothes</button>
             <button onClick={() => navigate("/outfit")}>Make an Outfit</button>
             <button onClick={() => navigate("/inventory")}>
-                View Inventory
+                View Closet
             </button>
         </div>
     );

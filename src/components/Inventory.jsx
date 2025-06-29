@@ -81,6 +81,7 @@ const Inventory = () => {
             <select value={filter} onChange={(e) => setFilter(e.target.value)}>
                 <option value="All">All</option>
                 <option value="Hat">Hat</option>
+                <option value="Accessories">Accessories</option>
                 <option value="Top">Top</option>
                 <option value="Bottom">Bottom</option>
                 <option value="Shoes">Shoes</option>

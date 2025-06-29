@@ -4,6 +4,7 @@ import "./OutfitMaker.css"; // make sure to style modal here
 
 const OutfitMaker = () => {
     const [hat, setHat] = useState(null);
+    const [accessories, setAccessories] = useState(null);
     const [top, setTop] = useState(null);
     const [bottom, setBottom] = useState(null);
     const [shoes, setShoes] = useState(null);
@@ -48,6 +49,7 @@ const OutfitMaker = () => {
     const handleSelect = (url) => {
         const setter = {
             Hat: setHat,
+            Accessories: setAccessories,
             Top: setTop,
             Bottom: setBottom,
             Shoes: setShoes,
@@ -72,6 +74,7 @@ const OutfitMaker = () => {
         };
 
         setHat(getRandom("Hat"));
+        setAccessories(getRandom("Accessories"));
         setTop(getRandom("Top"));
         setBottom(getRandom("Bottom"));
         setShoes(getRandom("Shoes"));
@@ -90,7 +93,7 @@ const OutfitMaker = () => {
             </div>
 
             <div className="upload-bin">
-                {["Hat", "Top", "Bottom", "Shoes"].map((cat) => (
+                {["Hat", "Accessories", "Top", "Bottom", "Shoes"].map((cat) => (
                     <div key={cat}>
                         <h4>{cat}</h4>
                         <button onClick={() => openModal(cat)}>
@@ -103,7 +106,7 @@ const OutfitMaker = () => {
             <div className="preview">
                 <h3>Outfit Preview:</h3>
                 <button className="randomize-button" onClick={handleRandomize}>
-                    🎲 Randomize Outfit
+                    Randomize Outfit
                 </button>
                 <div className="preview-column">
                     {hat && (
@@ -112,6 +115,20 @@ const OutfitMaker = () => {
                             onClick={() => confirmRemove("Hat", setHat)}
                         >
                             <img src={hat} width="150" alt="Hat" />
+                        </div>
+                    )}
+                    {accessories && (
+                        <div
+                            className="preview-img-wrapper"
+                            onClick={() =>
+                                confirmRemove("Accessories", setAccessories)
+                            }
+                        >
+                            <img
+                                src={accessories}
+                                width="150"
+                                alt="Accessories"
+                            />
                         </div>
                     )}
                     {top && (
