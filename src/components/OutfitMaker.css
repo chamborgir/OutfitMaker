@@ -1,0 +1,93 @@
+
+/* === Outfit Maker === */
+.container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.header-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.upload-bin,
+.image-select {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.image-select img,
+.modal-image {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.image-select img:hover,
+.modal-image:hover {
+  transform: scale(1.05);
+}
+
+.selected {
+  border: 2px solid #222;
+}
+
+.preview {
+  margin-top: 2rem;
+}
+
+.preview-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preview-img-wrapper {
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.preview-img-wrapper img {
+  border-radius: 8px;
+  transition: opacity 0.2s ease;
+}
+
+.preview-img-wrapper:hover img {
+  opacity: 0.7;
+}
+
+.modal-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.randomize-button {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  background-color: #222;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.randomize-button:hover {
+  background-color: #444;
+}
