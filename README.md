@@ -1,12 +1,22 @@
-# React + Vite
+# OutfitMaker (Digital Personalized Closet)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a only made for fun.
 
-Currently, two official plugins are available:
+This web application lets you create a digital outfit based from the (uploaded) clothes you have.
+Simply take a photo of your clothes, then labeled it based from its type/category.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Features:
+[1] Lets you customize your own digital closet.
+[2] Can save outfit that is on "Outfit Preview".
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+To-add:
+[1] Automatically make the bg of the uploaded images to white for uniformity.
+[2] Add features like: Can add clothes to favourites, Smarter Outfiti Randomizer, etc.
+
+I'm open for suggestions. 
+
+Lingaw2 rani guys kay uso man jud nis tiktok hahahahhaa
+very basic ang design ani guys kay di nako forte or di ko hilig og style and web dev,
+gusto ko robot2 hahaha. yun lang thanks.
+
