@@ -5,13 +5,21 @@ import "./OutfitMaker.css"; // make sure to style modal here
 const OutfitMaker = () => {
     const [hat, setHat] = useState(null);
     const [accessories, setAccessories] = useState(null);
+    const [outerwear, setOuterwear] = useState(null);
     const [top, setTop] = useState(null);
     const [bottom, setBottom] = useState(null);
     const [shoes, setShoes] = useState(null);
+    const [bag, setBag] = useState(null);
     const [clothes, setClothes] = useState([]);
 
     const [modalOpen, setModalOpen] = useState(false);
     const [activeCategory, setActiveCategory] = useState("");
+
+    const [confirmModalOpen, setConfirmModalOpen] = useState(false);
+    const [confirmTarget, setConfirmTarget] = useState({
+        label: "",
+        setter: null,
+    });
 
     useEffect(() => {
         const fetchClothes = async () => {
@@ -50,16 +58,24 @@ const OutfitMaker = () => {
         const setter = {
             Hat: setHat,
             Accessories: setAccessories,
+            Outerwear: setOuterwear,
             Top: setTop,
             Bottom: setBottom,
             Shoes: setShoes,
+            Bag: setBag,
         }[activeCategory];
         if (setter) setter(url);
         closeModal();
     };
 
     const confirmRemove = (label, setter) => {
-        if (window.confirm(`Remove ${label}?`)) setter(null);
+        setConfirmTarget({ label, setter });
+        setConfirmModalOpen(true);
+    };
+
+    const handleConfirmRemove = () => {
+        confirmTarget.setter(null);
+        setConfirmModalOpen(false);
     };
 
     const getByCategory = (category) =>
@@ -75,9 +91,11 @@ const OutfitMaker = () => {
 
         setHat(getRandom("Hat"));
         setAccessories(getRandom("Accessories"));
+        setOuterwear(getRandom("Outerwear"));
         setTop(getRandom("Top"));
         setBottom(getRandom("Bottom"));
         setShoes(getRandom("Shoes"));
+        setBag(getRandom("Bag"));
     };
 
     const handleSaveOutfit = async () => {
@@ -95,9 +113,11 @@ const OutfitMaker = () => {
                 user_id: user.id,
                 hat,
                 accessories,
+                outerwear,
                 top,
                 bottom,
                 shoes,
+                bag,
             },
         ]);
 
@@ -122,7 +142,15 @@ const OutfitMaker = () => {
             </div>
 
             <div className="upload-bin">
-                {["Hat", "Accessories", "Top", "Bottom", "Shoes"].map((cat) => (
+                {[
+                    "Hat",
+                    "Accessories",
+                    "Outerwear",
+                    "Top",
+                    "Bottom",
+                    "Shoes",
+                    "Bag",
+                ].map((cat) => (
                     <div key={cat}>
                         <h4>{cat}</h4>
                         <button onClick={() => openModal(cat)}>
@@ -131,6 +159,8 @@ const OutfitMaker = () => {
                     </div>
                 ))}
             </div>
+
+            <hr className="section-divider" />
 
             <div className="preview">
                 <h3>Outfit Preview:</h3>
@@ -164,6 +194,16 @@ const OutfitMaker = () => {
                             />
                         </div>
                     )}
+                    {outerwear && (
+                        <div
+                            className="preview-img-wrapper"
+                            onClick={() =>
+                                confirmRemove("Outerwear", setOuterwear)
+                            }
+                        >
+                            <img src={outerwear} width="150" alt="Top" />
+                        </div>
+                    )}
                     {top && (
                         <div
                             className="preview-img-wrapper"
@@ -188,6 +228,14 @@ const OutfitMaker = () => {
                             <img src={shoes} width="150" alt="Shoes" />
                         </div>
                     )}
+                    {bag && (
+                        <div
+                            className="preview-img-wrapper"
+                            onClick={() => confirmRemove("Bag", setBag)}
+                        >
+                            <img src={bag} width="150" alt="Top" />
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -208,6 +256,36 @@ const OutfitMaker = () => {
                             ))}
                         </div>
                         <button onClick={closeModal}>Cancel</button>
+                    </div>
+                </div>
+            )}
+
+            {confirmModalOpen && (
+                <div
+                    className="modal-backdrop"
+                    onClick={() => setConfirmModalOpen(false)}
+                >
+                    <div className="modal" onClick={(e) => e.stopPropagation()}>
+                        <h3>Remove {confirmTarget.label}?</h3>
+                        <p>
+                            This will remove the selected {confirmTarget.label}{" "}
+                            from the preview.
+                        </p>
+                        <div
+                            style={{
+                                marginTop: "1rem",
+                                display: "flex",
+                                gap: "1rem",
+                                justifyContent: "center",
+                            }}
+                        >
+                            <button onClick={handleConfirmRemove}>
+                                Yes, Remove
+                            </button>
+                            <button onClick={() => setConfirmModalOpen(false)}>
+                                Cancel
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

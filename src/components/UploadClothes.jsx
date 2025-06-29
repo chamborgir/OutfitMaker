@@ -97,9 +97,12 @@ const UploadClothes = () => {
             >
                 <option value="Hat">Hat</option>
                 <option value="Accessories">Accessories</option>
+                <option value="Outerwear">Outerwear</option>
                 <option value="Top">Top</option>
                 <option value="Bottom">Bottom</option>
                 <option value="Shoes">Shoes</option>
+                <option value="Bag">Bag</option>
+
             </select>
 
             <button

@@ -74,9 +74,11 @@ const Inventory = () => {
                 <option value="All">All</option>
                 <option value="Hat">Hat</option>
                 <option value="Accessories">Accessories</option>
+                <option value="Outerwear">Outerwear</option>
                 <option value="Top">Top</option>
                 <option value="Bottom">Bottom</option>
                 <option value="Shoes">Shoes</option>
+                <option value="Bag">Bag</option>
                 <option value="Outfits">Outfits</option>
             </select>
 
@@ -99,6 +101,14 @@ const Inventory = () => {
                                         width="60"
                                     />
                                 )}
+
+                                {outfit.outerwear && (
+                                    <img
+                                        src={outfit.outerwear}
+                                        alt="Outerwear"
+                                        width="60"
+                                    />
+                                )}
                                 {outfit.top && (
                                     <img
                                         src={outfit.top}
@@ -117,6 +127,13 @@ const Inventory = () => {
                                     <img
                                         src={outfit.shoes}
                                         alt="Shoes"
+                                        width="60"
+                                    />
+                                )}
+                                {outfit.bag && (
+                                    <img
+                                        src={outfit.bag}
+                                        alt="Bag"
                                         width="60"
                                     />
                                 )}
