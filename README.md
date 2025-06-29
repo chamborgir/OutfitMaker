@@ -6,13 +6,16 @@ This web application lets you create a digital outfit based from the (uploaded) 
 Simply take a photo of your clothes, then labeled it based from its type/category.
 
 Features:
-[1] Lets you customize your own digital closet.
-[2] Can save outfit that is on "Outfit Preview".
+<br>[1] Lets you customize your own digital closet.
+<br>[2] Can save outfit that is on "Outfit Preview".
+<br>[3] Many more puhon
 
 
 To-add:
-[1] Automatically make the bg of the uploaded images to white for uniformity.
-[2] Add features like: Can add clothes to favourites, Smarter Outfiti Randomizer, etc.
+<br>[1] Automatically make the bg of the uploaded images to white for uniformity.
+<br>[2] Add features like: Can add clothes to favourites, Smarter Outfiti Randomizer, etc.
+<br>[3] Many more puhon
+
 
 I'm open for suggestions. 
 
