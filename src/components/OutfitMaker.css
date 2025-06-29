@@ -112,14 +112,6 @@
 
 
 
-.preview-img-wrapper img {
-  border: 2px solid #aaa;
-}
-.preview-img-wrapper:hover img {
-  opacity: 0.7;
-  border-color: #333;
-}
-
 
 .section-divider {
   border: none;
