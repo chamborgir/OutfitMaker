@@ -7,10 +7,15 @@ const Inventory = () => {
     const [clothes, setClothes] = useState([]);
     const [outfits, setOutfits] = useState([]);
     const [filter, setFilter] = useState("All");
+    const [loading, setLoading] = useState(true);
+    const [confirmOpen, setConfirmOpen] = useState(false);
+    const [pendingDelete, setPendingDelete] = useState(null);
+    const [deleteType, setDeleteType] = useState(""); // "clothing" or "outfit"
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
             const {
                 data: { user },
             } = await supabase.auth.getUser();
@@ -29,27 +34,33 @@ const Inventory = () => {
 
             setClothes(clothesData || []);
             setOutfits(outfitsData || []);
+            setLoading(false);
         };
 
         fetchData();
     }, []);
 
-    const handleDeleteClothing = async (item) => {
-        const url = item.img_url || item.image_url;
-        if (!url) return;
-
-        const filename = url.split("/clothes/")[1];
-        const fullPath = `${item.user_id}/${filename}`;
-
-        await supabase.storage.from("clothes").remove([fullPath]);
-        await supabase.from("clothes").delete().eq("id", item.id);
-
-        setClothes((prev) => prev.filter((c) => c.id !== item.id));
+    const confirmDelete = (item, type) => {
+        setPendingDelete(item);
+        setDeleteType(type);
+        setConfirmOpen(true);
     };
 
-    const handleDeleteOutfit = async (id) => {
-        await supabase.from("outfits").delete().eq("id", id);
-        setOutfits((prev) => prev.filter((o) => o.id !== id));
+    const handleConfirmDelete = async () => {
+        if (deleteType === "clothing") {
+            const url = pendingDelete.img_url || pendingDelete.image_url;
+            if (url) {
+                const filename = url.split("/clothes/")[1];
+                const fullPath = `${pendingDelete.user_id}/${filename}`;
+                await supabase.storage.from("clothes").remove([fullPath]);
+            }
+            await supabase.from("clothes").delete().eq("id", pendingDelete.id);
+            setClothes((prev) => prev.filter((c) => c.id !== pendingDelete.id));
+        } else if (deleteType === "outfit") {
+            await supabase.from("outfits").delete().eq("id", pendingDelete.id);
+            setOutfits((prev) => prev.filter((o) => o.id !== pendingDelete.id));
+        }
+        setConfirmOpen(false);
     };
 
     const filteredClothes =
@@ -83,7 +94,11 @@ const Inventory = () => {
                 <option value="Outfits">Outfits</option>
             </select>
 
-            {filter === "Outfits" ? (
+            {loading ? (
+                <div className="loading-spinner">
+                    <div className="spinner"></div>
+                </div>
+            ) : filter === "Outfits" ? (
                 <div className="inventory-grid">
                     {outfits.length > 0 ? (
                         outfits.map((outfit) => (
@@ -102,7 +117,6 @@ const Inventory = () => {
                                         width="60"
                                     />
                                 )}
-
                                 {outfit.outerwear && (
                                     <img
                                         src={outfit.outerwear}
@@ -140,7 +154,7 @@ const Inventory = () => {
                                 )}
                                 <button
                                     onClick={() =>
-                                        handleDeleteOutfit(outfit.id)
+                                        confirmDelete(outfit, "outfit")
                                     }
                                 >
                                     Delete
@@ -166,7 +180,9 @@ const Inventory = () => {
                                 />
                                 <p>{item.category}</p>
                                 <button
-                                    onClick={() => handleDeleteClothing(item)}
+                                    onClick={() =>
+                                        confirmDelete(item, "clothing")
+                                    }
                                 >
                                     Delete
                                 </button>
@@ -175,6 +191,34 @@ const Inventory = () => {
                     ) : (
                         <p>No clothes uploaded yet.</p>
                     )}
+                </div>
+            )}
+
+            {confirmOpen && (
+                <div
+                    className="confirm-modal-backdrop"
+                    onClick={() => setConfirmOpen(false)}
+                >
+                    <div
+                        className="confirm-modal"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <p>
+                            Are you sure you want to delete this {deleteType}?
+                        </p>
+                        <button
+                            className="confirm-btn"
+                            onClick={handleConfirmDelete}
+                        >
+                            Delete
+                        </button>
+                        <button
+                            className="cancel-btn"
+                            onClick={() => setConfirmOpen(false)}
+                        >
+                            Cancel
+                        </button>
+                    </div>
                 </div>
             )}
         </div>

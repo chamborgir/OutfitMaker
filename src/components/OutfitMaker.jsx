@@ -14,6 +14,7 @@ const OutfitMaker = () => {
 
     const [modalOpen, setModalOpen] = useState(false);
     const [activeCategory, setActiveCategory] = useState("");
+    const [successModalOpen, setSuccessModalOpen] = useState(false);
 
     const [confirmModalOpen, setConfirmModalOpen] = useState(false);
     const [confirmTarget, setConfirmTarget] = useState({
@@ -125,7 +126,7 @@ const OutfitMaker = () => {
             console.error("Error saving outfit:", error);
             alert("Failed to save outfit.");
         } else {
-            alert("Outfit saved successfully!");
+            setSuccessModalOpen(true); // ✅ Show modal
         }
     };
 
@@ -152,7 +153,6 @@ const OutfitMaker = () => {
                     "Bag",
                 ].map((cat) => (
                     <div key={cat}>
-                        <h4>{cat}</h4>
                         <button onClick={() => openModal(cat)}>
                             Choose {cat}
                         </button>
@@ -164,12 +164,6 @@ const OutfitMaker = () => {
 
             <div className="preview">
                 <h3>Outfit Preview:</h3>
-                <button className="randomize-button" onClick={handleRandomize}>
-                    Randomize Outfit
-                </button>
-                <button className="save-button" onClick={handleSaveOutfit}>
-                    Save Outfit
-                </button>
 
                 <div className="preview-column">
                     {hat && (
@@ -237,6 +231,12 @@ const OutfitMaker = () => {
                         </div>
                     )}
                 </div>
+                <button className="randomize-button" onClick={handleRandomize}>
+                    Randomize Outfit
+                </button>
+                <button className="save-button" onClick={handleSaveOutfit}>
+                    Save Outfit
+                </button>
             </div>
 
             {modalOpen && (
@@ -286,6 +286,22 @@ const OutfitMaker = () => {
                                 Cancel
                             </button>
                         </div>
+                    </div>
+                </div>
+            )}
+            {successModalOpen && (
+                <div
+                    className="modal-backdrop"
+                    onClick={() => setSuccessModalOpen(false)}
+                >
+                    <div className="modal" onClick={(e) => e.stopPropagation()}>
+                        <h3>Outfit Saved!</h3>
+                        <p>
+                            Your outfit was successfully added to your closet.
+                        </p>
+                        <button onClick={() => setSuccessModalOpen(false)}>
+                            OK
+                        </button>
                     </div>
                 </div>
             )}

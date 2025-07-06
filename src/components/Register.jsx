@@ -50,6 +50,11 @@ const Register = () => {
                     {loading ? "Registering..." : "Register"}
                 </button>
             </form>
+            <div>
+                Note: <b>Forgot Password</b> isn't implemented yet so please
+                use a <b>different password</b>, since both username and password
+                will be emailed to you.
+            </div>
         </div>
     );
 };

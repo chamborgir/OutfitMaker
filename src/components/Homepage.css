@@ -8,9 +8,10 @@ form, .container {
   box-shadow: 0 4px 16px rgba(0,0,0,0.05);
 }
 
-input[type="text"],
-input[type="password"],
-input[type="file"],
+.h2-homepage {
+  padding-bottom: 25px;
+}
+
 button {
   width: 100%;
   padding: 0.75rem;
@@ -20,6 +21,8 @@ button {
   border: 1px solid #ccc;
   font-size: 1rem;
 }
+
+
 
 button {
   background-color: #222;
@@ -31,5 +34,16 @@ button {
 
 button:hover {
   background-color: #444;
+  cursor: pointer;
+}
+
+.logout-button {
+  background-color: #800000; /* maroon */
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #a10000;
   cursor: pointer;
 }

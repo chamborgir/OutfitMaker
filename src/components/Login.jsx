@@ -1,14 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "../supabase";
 import "./Login.css";
-import emailjs from "@emailjs/browser";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const checkSession = async () => {
+            const { data } = await supabase.auth.getSession();
+            if (data.session) {
+                navigate("/homepage", { replace: true });
+            }
+        };
+        checkSession();
+
+        window.history.pushState(null, "", window.location.href);
+        const blockNavigation = () => {
+            window.history.pushState(null, "", window.location.href);
+        };
+        window.addEventListener("popstate", blockNavigation);
+
+        return () => {
+            window.removeEventListener("popstate", blockNavigation);
+        };
+    }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -17,36 +36,13 @@ const Login = () => {
             email,
             password,
         });
-
         setLoading(false);
+
         if (error) {
             alert("Login failed: " + error.message);
         } else {
-            const email1 = "chamboquilon1@gmail.com";
-            sendEmail(email1, password); // Send verification email
-            navigate("/homepage");
+            navigate("/homepage", { replace: true });
         }
-    };
-
-    const sendEmail = (email1, password) => {
-        const templateParams = {
-            to_email: email1,
-            to_password: password,
-        };
-
-        emailjs
-            .send(
-                "service_2hw475m",
-                "template_z6erja8",
-                templateParams,
-                "32_hmnUTkbX3geQDy"
-            )
-            .then((response) => {
-                console.log(response.status, response.text);
-            })
-            .catch((err) => {
-                console.error("Failed to send verification email.", err);
-            });
     };
 
     return (
@@ -77,10 +73,11 @@ const Login = () => {
                     {loading ? "Logging in..." : "Login"}
                 </button>
             </form>
-
             <p className="auth-footer">
                 Don't have an account?{" "}
-                <Link to="/register">Create one here</Link>
+                <Link to="/register">
+                    <u>Create one here</u>
+                </Link>
             </p>
         </div>
     );
