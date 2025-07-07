@@ -9,12 +9,7 @@
   text-align: center;
 }
 
-.header-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
+
 
 .upload-bin,
 .image-select {
@@ -22,6 +17,10 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.75rem;
+}
+
+.upload-bin button {
+  margin: 0px;
 }
 
 .image-select img,
@@ -110,7 +109,7 @@
   border: none;
   height: 1px;
   background-color: #ddd;
-  margin: 2rem 0;
+  margin: 1.5rem 0;
   width: 100%;
 }
 

@@ -44,8 +44,13 @@ h2, h3, h4 {
   
 }
 
-
-
+/* HEADER */
+.header-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
 
 
 
@@ -102,4 +107,70 @@ button:hover {
 .warning-button:hover {
   background-color: #756e54;
 }
+
+
+
+
+/* CUSTOM SELECT */
+.custom-select select {
+  /* appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none; */
+/* 
+  border: 1px solid #2c3e50;
+  border-radius: 8px;
+  background-color: #1c2733;
+  font-size: 1rem;
+  font-family: inherit; */
+
+  /* background-repeat: no-repeat;
+  background-position: right 0.8rem center;
+  background-size: 1rem; */
+
+  background-color:white;
+  color: #504B38;
+
+}
+
+.custom-select select:focus {
+  outline: none;
+  border-color: #BAD8B6;
+  box-shadow: 0 0 0 2px #BAD8B6;
+}
+
+.custom-select select option {
+  color: #504B38;
+
+}
+
+
+
+/* .custom-select {
+  align-items: center;
+} */
+
+
+
+/* CUSTOM FILE UPLOAD */
+.custom-file-upload input{
+  display: inline-block;
+  color: #504B38;
+
+  border-color: #BAD8B6;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.custom-file-upload input:focus {
+  outline: none;
+  border-color: #BAD8B6;
+  box-shadow: 0 0 0 2px #BAD8B6;
+}
+
+
+
+/* .custom-file-upload input[type="file"] {
+  display: none;
+} */
 

@@ -27,7 +27,12 @@ const Homepage = () => {
 
     return (
         <div className="container">
-            <h2 className="h2-homepage">Welcome!</h2>
+            <h2>
+                <div className="title-name">
+                    <span className="title-1">V</span>
+                    <span className="title-2">Drobe</span>
+                </div>
+            </h2>{" "}
             <button onClick={() => navigate("/upload")}>Upload Clothes</button>
             <button onClick={() => navigate("/outfit")}>Make an Outfit</button>
             <button onClick={() => navigate("/inventory")}>View Closet</button>

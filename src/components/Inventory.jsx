@@ -47,19 +47,55 @@ const Inventory = () => {
     };
 
     const handleConfirmDelete = async () => {
+        if (!pendingDelete) return;
+
         if (deleteType === "clothing") {
             const url = pendingDelete.img_url || pendingDelete.image_url;
+
             if (url) {
-                const filename = url.split("/clothes/")[1];
-                const fullPath = `${pendingDelete.user_id}/${filename}`;
-                await supabase.storage.from("clothes").remove([fullPath]);
+                const fullPath = new URL(url).pathname.split("/clothes/")[1];
+
+                if (fullPath && pendingDelete.user_id) {
+                    const { error: storageErr } = await supabase.storage
+                        .from("clothes")
+                        .remove([fullPath]);
+
+                    if (storageErr) {
+                        console.error(
+                            "Failed to delete from storage:",
+                            storageErr.message
+                        );
+                    }
+                }
             }
-            await supabase.from("clothes").delete().eq("id", pendingDelete.id);
-            setClothes((prev) => prev.filter((c) => c.id !== pendingDelete.id));
+
+            const { error } = await supabase
+                .from("clothes")
+                .delete()
+                .eq("id", pendingDelete.id);
+
+            if (error) {
+                console.error("Failed to delete from DB:", error.message);
+            } else {
+                setClothes((prev) =>
+                    prev.filter((c) => c.id !== pendingDelete.id)
+                );
+            }
         } else if (deleteType === "outfit") {
-            await supabase.from("outfits").delete().eq("id", pendingDelete.id);
-            setOutfits((prev) => prev.filter((o) => o.id !== pendingDelete.id));
+            const { error } = await supabase
+                .from("outfits")
+                .delete()
+                .eq("id", pendingDelete.id);
+
+            if (error) {
+                console.error("Failed to delete outfit:", error.message);
+            } else {
+                setOutfits((prev) =>
+                    prev.filter((o) => o.id !== pendingDelete.id)
+                );
+            }
         }
+
         setConfirmOpen(false);
     };
 
@@ -81,17 +117,22 @@ const Inventory = () => {
                     Back
                 </button>
             </div>
-            <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-                <option value="All">All</option>
-                <option value="Hat">Hat</option>
-                <option value="Accessories">Accessories</option>
-                <option value="Outerwear">Outerwear</option>
-                <option value="Top">Top</option>
-                <option value="Bottom">Bottom</option>
-                <option value="Shoes">Shoes</option>
-                <option value="Bag">Bag</option>
-                <option value="Outfits">Outfits</option>
-            </select>
+            <div className="custom-select">
+                <select
+                    value={filter}
+                    onChange={(e) => setFilter(e.target.value)}
+                >
+                    <option value="All">All</option>
+                    <option value="Hat">Hat</option>
+                    <option value="Accessories">Accessories</option>
+                    <option value="Outerwear">Outerwear</option>
+                    <option value="Top">Top</option>
+                    <option value="Bottom">Bottom</option>
+                    <option value="Shoes">Shoes</option>
+                    <option value="Bag">Bag</option>
+                    <option value="Outfits">Outfits</option>
+                </select>
+            </div>
 
             {loading ? (
                 <div className="loading-spinner">

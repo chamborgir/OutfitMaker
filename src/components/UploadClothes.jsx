@@ -83,27 +83,28 @@ const UploadClothes = () => {
                     Back
                 </button>
             </div>
-
-            <input
-                type="file"
-                onChange={(e) => setFile(e.target.files[0])}
-                disabled={isLoading}
-            />
-
-            <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                disabled={isLoading}
-            >
-                <option value="Hat">Hat</option>
-                <option value="Accessories">Accessories</option>
-                <option value="Outerwear">Outerwear</option>
-                <option value="Top">Top</option>
-                <option value="Bottom">Bottom</option>
-                <option value="Shoes">Shoes</option>
-                <option value="Bag">Bag</option>
-
-            </select>
+            <div className="custom-file-upload">
+                <input
+                    type="file"
+                    onChange={(e) => setFile(e.target.files[0])}
+                    disabled={isLoading}
+                />
+            </div>
+            <div className="custom-select">
+                <select
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    disabled={isLoading}
+                >
+                    <option value="Hat">Hat</option>
+                    <option value="Accessories">Accessories</option>
+                    <option value="Outerwear">Outerwear</option>
+                    <option value="Top">Top</option>
+                    <option value="Bottom">Bottom</option>
+                    <option value="Shoes">Shoes</option>
+                    <option value="Bag">Bag</option>
+                </select>
+            </div>
 
             <button
                 className="upload-btn"
