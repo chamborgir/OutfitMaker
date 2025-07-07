@@ -31,7 +31,7 @@ const Homepage = () => {
             <button onClick={() => navigate("/upload")}>Upload Clothes</button>
             <button onClick={() => navigate("/outfit")}>Make an Outfit</button>
             <button onClick={() => navigate("/inventory")}>View Closet</button>
-            <button className="logout-button" onClick={handleLogout}>
+            <button className="warning-button" onClick={handleLogout}>
                 Logout
             </button>
         </div>

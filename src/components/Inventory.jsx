@@ -10,7 +10,7 @@ const Inventory = () => {
     const [loading, setLoading] = useState(true);
     const [confirmOpen, setConfirmOpen] = useState(false);
     const [pendingDelete, setPendingDelete] = useState(null);
-    const [deleteType, setDeleteType] = useState(""); // "clothing" or "outfit"
+    const [deleteType, setDeleteType] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -81,7 +81,6 @@ const Inventory = () => {
                     Back
                 </button>
             </div>
-
             <select value={filter} onChange={(e) => setFilter(e.target.value)}>
                 <option value="All">All</option>
                 <option value="Hat">Hat</option>
@@ -207,7 +206,7 @@ const Inventory = () => {
                             Are you sure you want to delete this {deleteType}?
                         </p>
                         <button
-                            className="confirm-btn"
+                            className="warning-button"
                             onClick={handleConfirmDelete}
                         >
                             Delete

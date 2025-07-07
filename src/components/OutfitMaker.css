@@ -1,5 +1,4 @@
 
-/* === Outfit Maker === */
 .container {
   max-width: 700px;
   margin: 40px auto;
@@ -53,7 +52,6 @@
 }
 
 .preview-img-wrapper {
-  margin-bottom: 1rem;
   cursor: pointer;
 }
 
@@ -80,8 +78,6 @@
   margin-bottom: 20px;
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
-  background-color: #222;
-  color: #fff;
   border: none;
   border-radius: 8px;
   font-weight: 600;
@@ -89,16 +85,13 @@
   transition: background-color 0.3s ease;
 }
 
-.randomize-button:hover {
-  background-color: #444;
-}
 
 
 .save-button {
   margin-top: 10px;
   padding: 0.75rem 1rem;
-  background-color: #f0f0f0;
-  color: black;
+  background-color: #626F47;
+  color: white;
   font-weight: 600;
   border: none;
   border-radius: 8px;
@@ -107,7 +100,7 @@
 }
 
 .save-button:hover {
-  background-color: #d6d6d6;
+  background-color: #6F826A;
 }
 
 
@@ -149,13 +142,8 @@
   padding: 0.5rem 1.2rem;
   border: none;
   border-radius: 6px;
-  background: #222;
-  color: white;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s ease;
 }
 
-.modal button:hover {
-  background: #444;
-}
