@@ -42,18 +42,15 @@
   border: none;
   font-size: 1rem;
   font-weight: 600;
-  background-color: #222;
-  color: white;
   transition: background 0.3s ease;
 }
 
 .login-form button:hover {
-  background-color: #444;
   cursor: pointer;
 }
 
 .login-form button:disabled {
-  background-color: #888;
+  background-color: #EEEFE0;
   cursor: wait;
 }
 
@@ -72,3 +69,4 @@
 .auth-footer a:hover {
   text-decoration: underline;
 }
+

@@ -47,7 +47,12 @@ const Login = () => {
 
     return (
         <div className="login-container">
-            <h2>Login</h2>
+            <h2>
+                <div className="title-name">
+                    <span className="title-1">V</span>
+                    <span className="title-2">Drobe</span>
+                </div>
+            </h2>
             <form onSubmit={handleLogin} className="login-form">
                 <div className="input-group">
                     <input

@@ -12,6 +12,44 @@ h2, h3, h4 {
   margin-bottom: 1rem;
 }
 
+
+
+/* TITLE */
+
+.title-name {
+  font-size: 64px;
+    letter-spacing: -5px; /* Adjust this value to control spacing */
+
+  /* text-shadow:
+    -0.5px -0.5px 0 black,  
+     0.5px -0.5px 0 black,
+    -0.5px  0.5px 0 black,
+    0.5px  0.5px 0 black;  */
+      /* -webkit-text-stroke: 0.1px black;  */
+
+}
+.title-1 {
+  color:#626F47;
+
+}
+
+.title-2 {
+  color: #BAD8B6;
+
+}
+
+.register-title {
+  font-size: 64px;
+  color:#626F47;
+  
+}
+
+
+
+
+
+
+/* BUTTONS */
 button, select, input[type="file"], input[type="text"], input[type="password"] {
   width: 100%;
   padding: 0.75rem;

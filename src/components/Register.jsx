@@ -26,7 +26,8 @@ const Register = () => {
 
     return (
         <div className="login-container">
-            <h2>Register</h2>
+            <h2 className="register-title">Create Account</h2>
+
             <form onSubmit={handleRegister} className="login-form">
                 <div className="input-group">
                     <input
@@ -51,8 +52,8 @@ const Register = () => {
                 </button>
             </form>
             <div>
-                Note: <b>Forgot Password</b> isn't implemented yet so please
-                use a <b>different password</b>, since both username and password
+                Note: <b>Forgot Password</b> isn't implemented yet so please use
+                a <b>different password</b>, since both username and password
                 will be emailed to you.
             </div>
         </div>
