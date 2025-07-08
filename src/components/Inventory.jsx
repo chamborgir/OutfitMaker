@@ -13,6 +13,9 @@ const Inventory = () => {
     const [deleteType, setDeleteType] = useState("");
     const navigate = useNavigate();
 
+    const [previewImage, setPreviewImage] = useState(null);
+    const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
@@ -206,30 +209,38 @@ const Inventory = () => {
                     )}
                 </div>
             ) : (
-                <div className="inventory-grid">
+                <div className="inventory-outer-grid">
                     {filteredClothes.length > 0 ? (
-                        filteredClothes.map((item) => (
-                            <div key={item.id} className="clothing-item">
-                                <img
-                                    src={item.img_url}
-                                    alt={item.category}
-                                    width="100"
-                                    onError={(e) =>
-                                        (e.target.src = "/placeholder.png")
-                                    }
-                                />
-                                <p>{item.category}</p>
-                                <button
-                                    onClick={() =>
-                                        confirmDelete(item, "clothing")
-                                    }
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                        ))
+                        <div className="inventory-grid">
+                            {filteredClothes.map((item) => (
+                                <div key={item.id} className="clothing-item">
+                                    <img
+                                        src={item.img_url}
+                                        alt={item.category}
+                                        width="100"
+                                        onClick={() => {
+                                            setPreviewImage(item.img_url);
+                                            setIsPreviewOpen(true);
+                                        }}
+                                        style={{ cursor: "pointer" }}
+                                        onError={(e) =>
+                                            (e.target.src = "/placeholder.png")
+                                        }
+                                    />
+                                    <button
+                                        onClick={() =>
+                                            confirmDelete(item, "clothing")
+                                        }
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
                     ) : (
-                        <p>No clothes uploaded yet.</p>
+                        <div className="no-items-message">
+                            <p>No clothes uploaded yet.</p>
+                        </div>
                     )}
                 </div>
             )}
@@ -257,6 +268,26 @@ const Inventory = () => {
                             onClick={() => setConfirmOpen(false)}
                         >
                             Cancel
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {isPreviewOpen && (
+                <div
+                    className="preview-modal-backdrop"
+                    onClick={() => setIsPreviewOpen(false)}
+                >
+                    <div
+                        className="preview-modal"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <img src={previewImage} alt="Preview" />
+                        <button
+                            className="close-preview-btn"
+                            onClick={() => setIsPreviewOpen(false)}
+                        >
+                            Close
                         </button>
                     </div>
                 </div>

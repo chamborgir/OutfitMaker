@@ -15,23 +15,28 @@ h2 {
 
 .inventory-container select {
   padding: 0.5rem 1rem;
-  margin-bottom: 1rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
 }
 
 .inventory-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 20px;
-  justify-items: center;
+  column-count: 2;
+  column-gap: 20px;
+  padding: 0 0.5rem;
 }
 
 .clothing-item {
+  display: inline-block;
+
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;
-  width: 130px;
+  width: 125px;
+  break-inside: avoid;
   text-align: center;
+  margin-bottom: 1rem;
+
 }
 
 .clothing-item img {
@@ -63,34 +68,17 @@ h2 {
 }
 
 
-/* Loader Spinner */
-.loading-spinner {
+.no-items-message {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 50px;
+  font-size: 16px;
+  text-align: center;
+  color: #504B38;
 }
 
-.spinner {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: inline-block;
-  border-top: 3px solid #FFF;
-  border-right: 3px solid transparent;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
 
-}
 
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 
 /* Confirmation Modal */
 .confirm-modal-backdrop {
@@ -129,6 +117,56 @@ h2 {
 }
 .confirm-modal .confirm-btn:hover {
   background-color: #a10000;
+}
+
+
+
+/* PREVIEW IMAGE MODAL */
+.preview-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
+
+.preview-modal {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  max-width: 90%;
+  max-height: 90%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preview-modal img {
+  max-width: 85vw;
+  max-height: 60vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.close-preview-btn {
+  margin-top: 1rem;
+  padding: 8px 16px;
+  background-color: #504b38;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.close-preview-btn:hover {
+  background-color: #756e54;
 }
 
 

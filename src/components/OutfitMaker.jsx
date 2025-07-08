@@ -195,7 +195,7 @@ const OutfitMaker = () => {
                                 confirmRemove("Outerwear", setOuterwear)
                             }
                         >
-                            <img src={outerwear} width="150" alt="Top" />
+                            <img src={outerwear} width="180" alt="Top" />
                         </div>
                     )}
                     {top && (
@@ -203,7 +203,7 @@ const OutfitMaker = () => {
                             className="preview-img-wrapper"
                             onClick={() => confirmRemove("Top", setTop)}
                         >
-                            <img src={top} width="150" alt="Top" />
+                            <img src={top} width="180" alt="Top" />
                         </div>
                     )}
                     {bottom && (

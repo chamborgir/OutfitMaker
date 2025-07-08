@@ -47,10 +47,17 @@ h2, h3, h4 {
 /* HEADER */
 .header-nav {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 2rem;
   align-items: center;
-  margin-bottom: 1rem;
 }
+
+.header-nav h2 {
+  margin: 0;
+}
+
+
 
 
 
@@ -77,6 +84,7 @@ button {
 button:hover {
   background-color: #E1EACD;
 }
+
 
 
 
@@ -173,4 +181,35 @@ button:hover {
 /* .custom-file-upload input[type="file"] {
   display: none;
 } */
+
+
+
+/* Loader Spinner */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 3px solid #FFF;
+  border-right: 3px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
