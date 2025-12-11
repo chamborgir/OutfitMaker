@@ -9,7 +9,7 @@ const UploadClothes = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleUpload = async () => {
-        if (isLoading) return; // prevent double uploads
+        if (isLoading) return;
         setIsLoading(true);
 
         const {
@@ -29,12 +29,11 @@ const UploadClothes = () => {
         }
 
         const filePath = `${user.id}/${Date.now()}_${file.name}`;
+
+        // Upload original file directly to Supabase Storage
         const { error: uploadError } = await supabase.storage
             .from("clothes")
-            .upload(filePath, file, {
-                cacheControl: "3600",
-                upsert: false,
-            });
+            .upload(filePath, file);
 
         if (uploadError) {
             console.error("Upload error:", uploadError);
@@ -43,17 +42,19 @@ const UploadClothes = () => {
             return;
         }
 
+        // Get public URL
         const { data: urlData } = supabase.storage
             .from("clothes")
             .getPublicUrl(filePath);
 
         const imageUrl = urlData?.publicUrl;
 
+        // Insert metadata
         const { error: insertError } = await supabase.from("clothes").insert([
             {
                 user_id: user.id,
                 img_url: imageUrl,
-                storage_path: filePath, // ✅ Save exact storage path
+                storage_path: filePath,
                 category: category,
                 created_at: new Date().toISOString(),
             },
@@ -66,14 +67,16 @@ const UploadClothes = () => {
             return;
         }
 
-        // Reset states
+        // Reset UI
         setFile(null);
         setIsLoading(false);
         setShowModal(true);
     };
 
     return (
-        <div className="upload-container">
+        <div
+            className={`upload-container ${isLoading ? "loading-expand" : ""}`}
+        >
             <div className="header-nav">
                 <h2>Upload Clothes</h2>
                 <button
@@ -83,6 +86,7 @@ const UploadClothes = () => {
                     Back
                 </button>
             </div>
+
             <div className="custom-file-upload">
                 <input
                     type="file"
@@ -90,6 +94,7 @@ const UploadClothes = () => {
                     disabled={isLoading}
                 />
             </div>
+
             <div className="custom-select">
                 <select
                     value={category}

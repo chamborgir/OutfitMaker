@@ -129,12 +129,28 @@
 
 .modal {
   background: white;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   max-width: 400px;
   width: 90%;
+  max-height: 80vh; /* Prevent oversized modal */
+  display: flex;
+  flex-direction: column;
   text-align: center;
+}
+
+.modal-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1rem;
+
+  overflow-y: auto;      /* <— enables scrolling */
+  padding-right: 4px;
+  flex-grow: 1;          /* <— grid takes the available height */
+  max-height: 55vh;      /* <— prevents cancel button from being pushed off */
 }
 
 .modal button {
@@ -144,5 +160,6 @@
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s ease;
+  margin-top: 1rem;
 }
 

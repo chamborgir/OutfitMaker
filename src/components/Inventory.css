@@ -26,24 +26,26 @@ h2 {
 }
 
 .clothing-item {
-  display: inline-block;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 24px; /* more space between cards */
+  break-inside: avoid;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  width: 125px;
-  break-inside: avoid;
-  text-align: center;
-  margin-bottom: 1rem;
-
+  padding: 1.5rem; /* extra padding to prevent overflow */
+  box-sizing: border-box; /* include padding in width */
 }
 
 .clothing-item img {
   border-radius: 8px;
   width: 100%;
-  height: auto;
-  margin-bottom: 0rem;
+  max-height: 200px; /* limit image height for mobile */
+  object-fit: contain; /* prevent stretching */
+  margin-bottom: 0.75rem;
 }
 
 .clothing-item p {
@@ -54,7 +56,7 @@ h2 {
 }
 
 .clothing-item button {
-  margin-top: 0.5rem;
+  margin-top: auto; /* push button to bottom */
   padding: 0.5rem 0.75rem;
   font-size: 0.85rem;
   background-color: #504B38;
@@ -67,7 +69,6 @@ h2 {
   background-color: #756e54;
 }
 
-
 .no-items-message {
   display: flex;
   justify-content: center;
@@ -76,9 +77,6 @@ h2 {
   text-align: center;
   color: #504B38;
 }
-
-
-
 
 /* Confirmation Modal */
 .confirm-modal-backdrop {
@@ -115,11 +113,10 @@ h2 {
   background-color: #800000;
   color: white;
 }
+
 .confirm-modal .confirm-btn:hover {
   background-color: #a10000;
 }
-
-
 
 /* PREVIEW IMAGE MODAL */
 .preview-modal-backdrop {
@@ -169,4 +166,27 @@ h2 {
   background-color: #756e54;
 }
 
+/* RESPONSIVE GRID */
+@media (min-width: 600px) {
+  .inventory-grid {
+    column-count: 3;
+  }
+}
 
+@media (min-width: 900px) {
+  .inventory-grid {
+    column-count: 4;
+  }
+}
+
+/* MOBILE FIX: ensure cards are equal height and spacing */
+@media (max-width: 500px) {
+  .clothing-item {
+    padding: 1.25rem;
+    margin-bottom: 20px;
+  }
+
+  .clothing-item img {
+    max-height: 180px;
+  }
+}
